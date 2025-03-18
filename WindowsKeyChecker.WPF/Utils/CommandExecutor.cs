@@ -10,14 +10,13 @@ namespace WindowsKeyChecker.WPF.Utils
             try
             {
                 Process process = new Process();
-                process.StartInfo.FileName = "cmd.exe";
-                process.StartInfo.Arguments = $"/c slmgr {arguments}";
+                process.StartInfo.FileName = "cscript.exe";
+                process.StartInfo.Arguments = $"//Nologo C:\\Windows\\System32\\slmgr.vbs {arguments}";
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
-                process.StartInfo.Verb = "runas";
-                
+
                 process.Start();
                 string output = process.StandardOutput.ReadToEnd();
                 string error = process.StandardError.ReadToEnd();
